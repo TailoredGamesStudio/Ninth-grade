@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدرس الثامن: تمارين عامة ومسائل اختبار الوحدة</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .question {
+            margin-bottom: 20px;
+        }
+        .question h3 {
+            margin-bottom: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .feedback {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>الدرس الثامن: تمارين عامة ومسائل اختبار الوحدة</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">الصفحة الرئيسية</a>
+        <a href="math.html">الرجوع إلى قائمة الدروس</a>
+    </nav>
+
+    <section>
+        <h2>اختبار الوحدة</h2>
+        
+        <form id="quizForm">
+            <div class="question">
+                <h3>السؤال 1: ما هي مجموعة الفرق بين س = {1، 2، 3، 4} وص = {3، 4، 5، 6}؟</h3>
+                <label><input type="radio" name="q1" value="أ"> {1، 2}</label><br>
+                <label><input type="radio" name="q1" value="ب"> {3، 4}</label><br>
+                <label><input type="radio" name="q1" value="ج"> {5، 6}</label><br>
+                <label><input type="radio" name="q1" value="د"> {1، 2، 5، 6}</label><br>
+                <div class="feedback" id="feedback-q1"></div>
+            </div>
+
+            <div class="question">
+                <h3>السؤال 2: ما هي المجموعة المتممة لمجموعة ص في مجموعة س، حيث س = {1، 2، 3، 4، 5} وص = {2، 4}؟</h3>
+                <label><input type="radio" name="q2" value="أ"> {1، 3، 5}</label><br>
+                <label><input type="radio" name="q2" value="ب"> {1، 2، 3، 4، 5}</label><br>
+                <label><input type="radio" name="q2" value="ج"> {2، 4}</label><br>
+                <label><input type="radio" name="q2" value="د"> {1، 3، 4، 5}</label><br>
+                <div class="feedback" id="feedback-q2"></div>
+            </div>
+
+            <div class="question">
+                <h3>السؤال 3: ما هي خاصية التوزيع للتطبيق الخطي؟</h3>
+                <label><input type="radio" name="q3" value="أ"> ت(س + ص) = ت(س) + ت(ص)</label><br>
+                <label><input type="radio" name="q3" value="ب"> ت(س + ص) = ت(س) - ت(ص)</label><br>
+                <label><input type="radio" name="q3" value="ج"> ت(س + ص) = ت(س) * ت(ص)</label><br>
+                <label><input type="radio" name="q3" value="د"> ت(س + ص) = ت(س) / ت(ص)</label><br>
+                <div class="feedback" id="feedback-q3"></div>
+            </div>
+
+            <div class="question">
+                <h3>السؤال 4: ما هي العلاقة المتعدية؟</h3>
+                <label><input type="radio" name="q4" value="أ"> علاقة تحقق خاصية التعدي: إذا كان س يرتبط بـ ص وص يرتبط بـ ع، فإن س يرتبط بـ ع</label><br>
+                <label><input type="radio" name="q4" value="ب"> علاقة تحقق خاصية التماثل: إذا كان س يرتبط بـ ص، فإن ص يرتبط بـ س</label><br>
+                <label><input type="radio" name="q4" value="ج"> علاقة تحقق خاصية التوزيع: ت(س + ص) = ت(س) + ت(ص)</label><br>
+                <label><input type="radio" name="q4" value="د"> علاقة تحقق خاصية الانعكاس: كل عنصر يرتبط بنفسه</label><br>
+                <div class="feedback" id="feedback-q4"></div>
+            </div>
+
+            <div class="question">
+                <h3>السؤال 5: ما هي مجموعة الأعداد الحقيقية؟</h3>
+                <label><input type="radio" name="q5" value="أ"> مجموعة تحتوي على الأعداد الطبيعية فقط</label><br>
+                <label><input type="radio" name="q5" value="ب"> مجموعة تحتوي على الأعداد الطبيعية والأعداد الكسرية</label><br>
+                <label><input type="radio" name="q5" value="ج"> مجموعة تحتوي على الأعداد الطبيعية والأعداد الكسرية والأعداد السالبة والأعداد الصحيحة</label><br>
+                <label><input type="radio" name="q5" value="د"> مجموعة تحتوي على الأعداد الصحيحة فقط</label><br>
+                <div class="feedback" id="feedback-q5"></div>
+            </div>
+
+            <button type="button" onclick="calculateResult()">تحقق من الإجابات</button>
+        </form>
+
+        <div id="result" class="result"></div>
+
+        <script>
+            function calculateResult() {
+                var score = 0;
+                var totalQuestions = 5;
+                
+                // Correct answers
+                var answers = {
+                    q1: 'أ',
+                    q2: 'أ',
+                    q3: 'أ',
+                    q4: 'أ',
+                    q5: 'ج'
+                };
+                
+                // Get user's answers
+                var form = document.getElementById('quizForm');
+                for (var i = 1; i <= totalQuestions; i++) {
+                    var qName = 'q' + i;
+                    var selected = form.querySelector('input[name="' + qName + '"]:checked');
+                    var feedback = document.getElementById('feedback-' + qName);
+                    if (selected) {
+                        if (selected.value === answers[qName]) {
+                            score++;
+                            feedback.textContent = '';
+                        } else {
+                            feedback.textContent = 'الإجابة خاطئة، الإجابة الصحيحة هي: ' + getCorrectAnswer(answers[qName]);
+                        }
+                    } else {
+                        feedback.textContent = 'يرجى اختيار إجابة.';
+                    }
+                }
+
+                var result = document.getElementById('result');
+                result.textContent = 'لقد حصلت على ' + score + ' من ' + totalQuestions + ' سؤالاً صحيحاً.';
+            }
+
+            function getCorrectAnswer(answer) {
+                switch (answer) {
+                    case 'أ':
+                        return 'الإجابة الصحيحة هي: {1، 2}';
+                    case 'ب':
+                        return 'الإجابة الصحيحة هي: {1، 3، 5}';
+                    case 'ج':
+                        return 'الإجابة الصحيحة هي: ت(س + ص) = ت(س) + ت(ص)';
+                    case 'د':
+                        return 'الإجابة الصحيحة هي: علاقة تحقق خاصية التعدي: إذا كان س يرتبط بـ ص وص يرتبط بـ ع، فإن س يرتبط بـ ع';
+                    default:
+                        return 'الإجابة غير معروفة';
+                }
+            }
+        </script>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 موقع ملخصات الصف التاسع</p>
+    </footer>
+</body>
+</html>

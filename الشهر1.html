@@ -126,80 +126,57 @@
                 <div class="feedback" id="feedback-q10"></div>
             </div>
 
-            <button type="button" onclick="calculateScore()">احسب النتيجة</button>
+            <button type="button" onclick="calculateScore()">إرسال الإجابات</button>
         </form>
 
-        <div class="result" id="result"></div>
-
-        <script>
-            function calculateScore() {
-                var form = document.getElementById('quizForm');
-                var score = 0;
-
-                var points = {
-                    'q1': 2,
-                    'q2': 2,
-                    'q3': 2,
-                    'q4': 2,
-                    'q5': 2,
-                    'q6': 3,
-                    'q7': 2,
-                    'q8': 2,
-                    'q9': 2,
-                    'q10': 2
-                };
-
-                var answers = {
-                    'q1': 'أ',
-                    'q2': 'صحيح',
-                    'q3': 'أ',
-                    'q4': 'أ',
-                    'q5': 'خطأ',
-                    'q6': 'أ',
-                    'q7': 'أ',
-                    'q8': 'صحيح',
-                    'q9': 'أ',
-                    'q10': 'خطأ'
-                };
-
-                for (var qName in points) {
-                    var selected = form.querySelector('input[name="' + qName + '"]:checked');
-                    var feedback = document.getElementById('feedback-' + qName);
-                    if (selected) {
-                        if (selected.value === answers[qName]) {
-                            score += points[qName];
-                            feedback.textContent = '';
-                        } else {
-                            feedback.textContent = 'الإجابة خاطئة، الإجابة الصحيحة هي: ' + getCorrectAnswer(answers[qName]);
-                        }
-                    } else {
-                        feedback.textContent = 'يرجى اختيار إجابة.';
-                    }
-                }
-
-                var result = document.getElementById('result');
-                result.textContent = 'لقد حصلت على ' + score + ' من 20 درجة.';
-            }
-
-            function getCorrectAnswer(answer) {
-                switch (answer) {
-                    case 'أ':
-                        return 'الإجابة الصحيحة هي: {2، 4، 6، 8، 10}';
-                    case 'ب':
-                        return 'الإجابة الصحيحة هي: {1، 3، 5} هي مجموعة مميزة للأعداد الفردية من 1 إلى 5.';
-                    case 'صحيح':
-                        return 'الإجابة الصحيحة هي: صحيح';
-                    case 'خطأ':
-                        return 'الإجابة الصحيحة هي: خطأ';
-                    default:
-                        return 'الإجابة غير معروفة';
-                }
-            }
-        </script>
+        <div id="result" class="result"></div>
     </section>
 
-    <footer>
-        <p>&copy; 2024 موقع ملخصات الصف التاسع</p>
-    </footer>
+    <script>
+        // دالة لحساب الإجابات الصحيحة
+        function getCorrectAnswer(questionNumber) {
+            const answers = {
+                q1: { answer: 'أ', points: 2 },
+                q2: { answer: 'صحيح', points: 2 },
+                q3: { answer: 'أ', points: 2 },
+                q4: { answer: 'أ', points: 2 },
+                q5: { answer: 'صحيح', points: 2 },
+                q6: { answer: 'أ', points: 2 },
+                q7: { answer: 'أ', points: 2 },
+                q8: { answer: 'صحيح', points: 2 },
+                q9: { answer: 'أ', points: 2 },
+                q10: { answer: 'خطأ', points: 2 }
+            };
+            return answers[questionNumber];
+        }
+
+        // دالة لحساب النتيجة النهائية
+        function calculateScore() {
+            const form = document.getElementById('quizForm');
+            let score = 0;
+            let totalPoints = 20;
+
+            // دالة لمعالجة كل سؤال والتحقق من إجابته
+            for (let i = 1; i <= 10; i++) {
+                const questionName = 'q' + i;
+                const userAnswer = form[questionName].value;
+                const correctAnswer = getCorrectAnswer(questionName);
+                const feedbackElement = document.getElementById('feedback-' + questionName);
+
+                if (userAnswer === correctAnswer.answer) {
+                    score += correctAnswer.points;
+                    feedbackElement.textContent = "إجابة صحيحة!";
+                    feedbackElement.style.color = "green";
+                } else {
+                    feedbackElement.textContent = "إجابة خاطئة. الإجابة الصحيحة هي: " + correctAnswer.answer;
+                    feedbackElement.style.color = "red";
+                }
+            }
+
+            // عرض النتيجة النهائية
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = "نتيجتك هي: " + score + " من " + totalPoints + " درجة.";
+        }
+    </script>
 </body>
 </html>
